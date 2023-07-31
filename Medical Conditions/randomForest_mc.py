@@ -36,8 +36,9 @@ importance_df = pd.DataFrame({'Feature': X_train.columns, 'Importance': feature_
 
 # Sort the features in descending order
 importance_df = importance_df.sort_values(by='Importance', ascending=False)
+importance_df.to_csv('feature_importances.csv', index=False)
 
-print(importance_df)
+#print(importance_df)
 # Result highest: low oxygen, age, diabetes, hospitalized, bmi....
 # --> good at predicting non-deceased cases..
 # Further steps ??: Reduce number of non-deceased to balance or assign higher weights to deceased cases
