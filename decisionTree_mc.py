@@ -8,7 +8,7 @@ import graphviz
 
 data = pd.read_csv('modified_dataset.csv')
 
-features = ['age_categories', 'low_oxygen_level', 'ever_hospitalized', 'history_diabetes', 'bmi_cat',
+features = ['age_categories', 'ever_hospitalized', 'history_diabetes', 'bmi_cat',
             'history_hypertension', 'exposure_risk', 'sex', 'anemia_confirmed', 'history_cardiac',
             'uncontrolled_diabetes', 'history_hiv', 'smoke', 'history_pulmonary']
 
