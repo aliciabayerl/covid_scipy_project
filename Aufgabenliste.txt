@@ -1,0 +1,22 @@
+# Mail schreiben zur Gegenüberstellung
+- alles komentieren usw
+
+- Sortierung (Unterfolder)
+
+- pdf mit Auswertung
+-> Bilder ins pdf 
+
+- PDF: 
+Fragestellung
+Datenbereinigung: 3 Sätze schreiben (Aufteilung ...)
+Verteilung der Variablen 
+Funktionen für die Modelle
+
+ROC Kurven diskutieren -> Gegenüberstellung 
+
+Skript zu den ROC Kursen anpassen
+
+
+
+
+
