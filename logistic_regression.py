@@ -6,6 +6,8 @@ from imblearn.over_sampling import SMOTE
 from sklearn.metrics import roc_curve, roc_auc_score
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.model_selection import cross_val_score
+
 
 def logistic_regression(X, y):
 
@@ -18,9 +20,16 @@ def logistic_regression(X, y):
 
     # Perform Logistic regression, fit the model on the resampled data, make predicition and evaluate
     model = LogisticRegression()
+    v_score = cross_val_score(model, X, y, cv=10)
+
     model.fit(X_resampled, y_resampled)
 
     y_pred = model.predict(X_test)
+
+        
+    print("Cross-Validation Scores:")
+    print(v_score)
+    print("Mean CV Score:", v_score.mean())
 
     accuracy = accuracy_score(y_test, y_pred)
     print("Accuracy LR:", accuracy)

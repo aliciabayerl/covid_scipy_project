@@ -4,6 +4,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, roc_curve, roc_auc_score
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
+from sklearn.model_selection import cross_val_score
+
 
 def random_forest(X, y):
 
@@ -14,7 +16,9 @@ def random_forest(X, y):
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.3, random_state=42)
 
+    
     random_forest = RandomForestClassifier(n_estimators=100)
+    v_score = cross_val_score(random_forest, X, y, cv=10)
 
 
     # Fit the model on the resampled data, make predicition and evaluate
@@ -22,12 +26,18 @@ def random_forest(X, y):
 
     y_pred = random_forest.predict(X_test)
 
+    print("Cross-Validation Scores:")
+    print(v_score)
+    print("Mean CV Score:", v_score.mean())
+
     accuracy = accuracy_score(y_test, y_pred)
     print("Accuracy RF:", accuracy)
 
     report = classification_report(y_test, y_pred)
     print("Classification Report RF:")
     print(report)
+
+    
 
     # Calculate the probability scores, false/true positive rate, thresholds, ROC Curve for the test set
     y_pred_proba = random_forest.predict_proba(X_test)[:, 1]

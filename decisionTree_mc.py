@@ -7,6 +7,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, roc_auc_score
+from sklearn.model_selection import cross_val_score
 
 def decision_tree(X, y):
 
@@ -24,6 +25,7 @@ def decision_tree(X, y):
 
     # Train Decision Tree, fit the model on the resampled data, make predicition and evaluate
     decision_tree = DecisionTreeClassifier(max_depth=6)
+    v_score = cross_val_score(decision_tree, X, y, cv=10)
 
     decision_tree.fit(X_resampled, y_resampled)
 
@@ -35,6 +37,10 @@ def decision_tree(X, y):
     report = classification_report(y_test, y_pred)
     print("Classification Report DT:")
     print(report)
+
+    print("Cross-Validation Scores:")
+    print(v_score)
+    print("Mean CV Score:", v_score.mean())
 
     # Visualize the decision tree using graphviz
     dot_data = export_graphviz(decision_tree, out_file=None, 
