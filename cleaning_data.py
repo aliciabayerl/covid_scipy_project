@@ -22,12 +22,10 @@ columns_to_delete2 = [
     "Region_manuscript", "sex", "smoke", "Studysite_manuscript", "suspected_malaria", "symptoms_any", "test_reason", "uncontrolled_diabetes8", "symptoms_jointpain.x", "symptoms_wheezing.x"
 ]
 
-
+# Rename Columns
 data.rename(columns={'uncontrolled_diabetes8': 'uncontrolled_diabetes'}, inplace=True)
 data.rename(columns={'anemic_yn': 'anemia_confirmed'}, inplace=True)
 df1.rename(columns={'anemic_yn':'anemic','covidcasestatus_new':'covid','highbloodpressure_enrollment_13080':'highbloodpressure','hypothermia_enrollment':'hypothermia','low_oxygen94_enrollment':'low_oxygen', 'symptoms_abdominalpain.x':'abdominalpain', 'symptoms_appetite':'appetite', 'symptoms_chestpain.x':'chestpain','symptoms_chills.x':'chills', 'symptoms_cough.x':'cough', 'symptoms_diarrhea.x':'diarrhea', 'symptoms_fatigue.x':'fatigue', 'symptoms_headache.x':'headache', 'symptoms_nausea.x':'nausea','symptoms_runnynose.x':'runnynose', 'symptoms_sorethroat.x':'sorethroat','symptoms_tasteorsmell':'tasteorsmell' },inplace=True)
-
-
 
 
 columns_to_fill_no = [
@@ -45,11 +43,10 @@ exposure_columns = [
 ]
 
 columns_to_delete_na2 = [ 
-    'fever', 'hypothermia_enrollment', 'symptoms_chestpain.x', 'symptoms_headache.x', 'symptoms_runnynose.x', 'symptoms_sorethroat.x',
-    'symptoms_tasteorsmell'
+    'fever', 'hypothermia', 'chestpain', 'headache', 'runnynose', 'sorethroat',
+    'tasteorsmell'
 ]
 
-# TODO: Histogram machen
 age_range_mapping = {
     "< 18": 0,
     "18-44": 1,
@@ -64,9 +61,7 @@ bmi_mapping = {
     "obesity": 3,
 }
 
-
-
-# Rename and Replace
+# Replace Data or Rename
 
     # Medical conditions
 data['exposure_risk'] = data[exposure_columns].apply(lambda row: 'yes' if 'yes' in row.values else 'no', axis=1)
@@ -78,14 +73,18 @@ data['ever_hospitalized'] = data['ever_hospitalized'].replace({
 data['bmi_cat'] = data["bmi_cat"].fillna('normal weight')
 data['deceased'] = data['deceased'].replace("deceased", 'yes')
 
-
     # Symptoms
-df1[columns_to_fill_no2] = data[columns_to_fill_no2].fillna('no')
-df1['highbloodpressure_enrollment_13080'] = df1['highbloodpressure_enrollment_13080'].replace('High blood pressure- over 130/80', 'yes')
-df1['low_oxygen94_enrollment'] = df1['low_oxygen94_enrollment'].replace('Normal oxygen level- above or equal to 94', 'no')
-df1['deceased'] = df1['deceased'].replace("deceased", 'yes')
 
-# Mapping
+df1 = df1.dropna(subset = columns_to_delete_na2)
+df1[columns_to_fill_no2] = df1[columns_to_fill_no2].fillna('no')
+df1['highbloodpressure'] = df1['highbloodpressure'].replace('High blood pressure- over 130/80', 'yes')
+df1['low_oxygen'] = df1['low_oxygen'].replace('Normal oxygen level- above or equal to 94', 'no')
+df1['deceased'] = df1['deceased'].replace("deceased", 'yes')
+df1['covid'] = df1['covid'].replace("confirmed (rtpcr)", 'yes')
+
+# Mapping 
+
+    # Medical Conditions
 data['age_categories'] = data['age_categories'].map(age_range_mapping)
 data['bmi_cat'] = data['bmi_cat'].map(bmi_mapping)
 
@@ -100,12 +99,12 @@ data.drop(data.columns[0], axis=1, inplace=True)
 
     # Symptoms
 df1 = df1.drop(columns=columns_to_delete2)
-df1['covidcasestatus_new'].unique()
-df1['deceased'].unique()
-df1.drop (df1 [df1 ['covidcasestatus_new'] == 'Suspect- no valid test'].index, inplace= True)
+#df1['covid'].unique()
+#df1['deceased'].unique()
+df1.drop (df1 [df1 ['covid'] == 'Suspect- no valid test'].index, inplace= True)
 df1=df1.dropna(subset = ['deceased'])
-
-
+df1.drop(df1.columns[0], axis=1, inplace=True)
+df1 = df1.drop(columns='covid')
 
 # Transform into numerical values
 data = data.replace({"yes": 1, "no": 0})
@@ -115,7 +114,5 @@ df1 = df1.replace({"yes": 1, "no": 0})
 
 pd.set_option('display.max_columns', None)
 
-print(data.head(15))
-
-data.to_csv('mc_modified_dataset.csv', index=False)
-df1.to_csv('sy_modified_dataset.csv', index=False)
+data.to_csv('mc_cleaned_dataset.csv', index=False)
+df1.to_csv('sy_cleaned_dataset.csv', index=False)
