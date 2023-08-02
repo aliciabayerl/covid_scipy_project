@@ -5,7 +5,7 @@ from decisionTree_mc import decision_tree
 import matplotlib.pyplot as plt
 
 
-data = pd.read_csv('mc_cleaned_dataset.csv')
+data = pd.read_csv('sy_cleaned_dataset.csv')
 # Separate the features + the target variable
 X = data.drop("deceased", axis=1)
 y = data["deceased"]
@@ -52,4 +52,4 @@ plt.show()
 feature_importancesRF = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importancesRF})
 feature_importancesRF = feature_importancesRF.sort_values(by='Importance', ascending=False)
 
-feature_importancesRF.to_csv('feature_importances.csv', index=False)
+feature_importancesRF.to_csv('feature_importances2.csv', index=False)

@@ -43,8 +43,8 @@ exposure_columns = [
 ]
 
 columns_to_delete_na2 = [ 
-    'fever', 'hypothermia_enrollment', 'symptoms_chestpain.x', 'symptoms_headache.x', 'symptoms_runnynose.x', 'symptoms_sorethroat.x',
-    'symptoms_tasteorsmell'
+    'fever', 'hypothermia', 'chestpain', 'headache', 'runnynose', 'sorethroat',
+    'tasteorsmell'
 ]
 
 age_range_mapping = {
@@ -74,6 +74,8 @@ data['bmi_cat'] = data["bmi_cat"].fillna('normal weight')
 data['deceased'] = data['deceased'].replace("deceased", 'yes')
 
     # Symptoms
+
+df1 = df1.dropna(subset = columns_to_delete_na2)
 df1[columns_to_fill_no2] = df1[columns_to_fill_no2].fillna('no')
 df1['highbloodpressure'] = df1['highbloodpressure'].replace('High blood pressure- over 130/80', 'yes')
 df1['low_oxygen'] = df1['low_oxygen'].replace('Normal oxygen level- above or equal to 94', 'no')
