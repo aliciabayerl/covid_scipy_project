@@ -30,3 +30,30 @@ def sympt_plotten(df):
 sympt_plotten(df)
 plt.show()
 
+df2= pd.read_csv('MC_cleaned_dataset.csv', sep=',')
+df2= df2.drop('anemia_confirmed', axis=1)
+print(df2)
+print(df2.columns)
+
+titles=["Age of participants", "BMI of participants", "Number of deceased participants", "Number of participants that were hospitalized before", "Number of participants with asthma", "Number of participants with cardiac diseases", "Number of participants with diabetes", "Number of participants with HIV", "Number of participants with hypertension", "Number of participants with pulmonary diseases", "Sex of participants", "Number of participants that smoke", "Number of participants with uncontrolled diabetes", "Exposure risk of participants"]
+labeling=[['18-44', '<18', '45-64', '65+'], ['normal', 'underw.', 'overw.', 'obesity'], ['deceased', 'not deceased'], ['hospitalized before', 'not hospitalized before'], ['asthma', 'no asthma'], ['cardiac diseases', 'no cardiac diseases'], ['diabetes', 'no diabetes'], ['HIV pain', 'no HIV'], ['hypertension', 'no hypertension'], ['pulmonary diseases', 'no pulmonary diseases'], ['female', 'male'],['smoking', 'not smoking'], ['uncontrolled diabetes', 'no uncontrolled diabetes'], ['exposure risk', 'no exposure risk']]
+def sympt_plotten2(df):
+    plt.figure(figsize=(16, 12)).tight_layout()
+    plt.subplots_adjust(hspace=0.8, wspace=0.5)
+    for i in range(df2.shape[1]):
+        if i ==0 or i== 1:
+            values = [np.count_nonzero(df2.iloc[:, i] == 1), np.count_nonzero(df2.iloc[:, i] == 0), np.count_nonzero(df2.iloc[:,i]==2), np.count_nonzero(df2.iloc[:,i]==3)]  #
+        else:
+            values= [np.count_nonzero(df2.iloc[:,i]==1), np.count_nonzero(df2.iloc[:,i]==0)] #, np.count_nonzero(df2.iloc[:,i]==2), np.count_nonzero(df2.iloc[:,i]==3)
+        labels=labeling[i]
+        X_axis = np.arange(len(labels))
+        plt.subplot(3,5,i+1)
+        plt.bar(X_axis, values)
+        plt.xticks(X_axis, labels, fontsize=5)
+        plt.ylabel("Number of samples", fontsize=7)
+        plt.title(titles[i], fontsize=7)
+        print(i)
+    #plt.show()
+sympt_plotten2(df2)
+plt.show()
+
