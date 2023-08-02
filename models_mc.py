@@ -20,10 +20,10 @@ knn_model, kn_fpr, kn_tpr, kn_auc = knn_classification(X, y, k_neighbors=5)
 kmeans_model, kmeans_silhouette = kmeans_clustering(X, n_clusters=2)
 
 
-plt.figure(figsize=(18, 6))
+plt.figure(figsize=(14, 6))
 
 # Plot the ROC curve for Random Forest
-plt.subplot(1, 5, 1)
+plt.subplot(1, 4, 1)
 plt.plot(rf_fpr, rf_tpr, color='blue', lw=2, label='Random Forest (AUC = {:.2f})'.format(rf_auc))
 plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
 plt.xlabel('False Positive Rate')
@@ -32,7 +32,7 @@ plt.title('Random Forest - ROC Curve')
 plt.legend(loc='lower right')
 
 # Plot the ROC curve for Logistic Regression
-plt.subplot(1, 5, 2)
+plt.subplot(1, 4, 2)
 plt.plot(lr_fpr, lr_tpr, color='blue', lw=2, label='Logistic Regression (AUC = {:.2f})'.format(lr_auc))
 plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
 plt.xlabel('False Positive Rate')
@@ -41,7 +41,7 @@ plt.title('Logistic Regression - ROC Curve')
 plt.legend(loc='lower right')
 
 # Plot the ROC curve for Decision Tree
-plt.subplot(1, 5, 3)
+plt.subplot(1, 4, 3)
 plt.plot(dt_fpr, dt_tpr, color='blue', lw=2, label='Decision Tree (AUC = {:.2f})'.format(dt_auc))
 plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
 plt.xlabel('False Positive Rate')
@@ -50,7 +50,7 @@ plt.title('Decision Tree - ROC Curve')
 plt.legend(loc='lower right')
 
 # Plot the ROC curve for KNN
-plt.subplot(1, 5, 4)
+plt.subplot(1, 4, 4)
 plt.plot(kn_fpr, kn_tpr, color='blue', lw=2, label='K-nearest-neighbors (AUC = {:.2f})'.format(kn_auc))
 plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
 plt.xlabel('False Positive Rate')
@@ -58,14 +58,7 @@ plt.ylabel('True Positive Rate')
 plt.title('K-nearest-neighbors - ROC Curve')  # Corrected title
 plt.legend(loc='lower right')
 
-# Plot the ROC curve for kmeans
-plt.subplot(1, 5, 5)
-plt.plot(kn_fpr, kn_tpr, color='blue', lw=2, label='K-means (AUC = {:.2f})'.format(kn_auc))
-plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('K-means - ROC Curve')  # Corrected title
-plt.legend(loc='lower right')
+
 
 plt.tight_layout()
 plt.show()
