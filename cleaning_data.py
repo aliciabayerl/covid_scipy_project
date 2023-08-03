@@ -23,8 +23,7 @@ columns_to_delete2 = [
 ]
 
 # Rename Columns
-data.rename(columns={'uncontrolled_diabetes8': 'uncontrolled_diabetes'}, inplace=True)
-data.rename(columns={'anemic_yn': 'anemia_confirmed'}, inplace=True)
+data.rename(columns={'uncontrolled_diabetes8': 'uncontrolled_diabetes', 'anemic_yn': 'anemia_confirmed'}, inplace=True)
 df1.rename(columns={'anemic_yn':'anemic','covidcasestatus_new':'covid','highbloodpressure_enrollment_13080':'highbloodpressure','hypothermia_enrollment':'hypothermia','low_oxygen94_enrollment':'low_oxygen', 'symptoms_abdominalpain.x':'abdominalpain', 'symptoms_appetite':'appetite', 'symptoms_chestpain.x':'chestpain','symptoms_chills.x':'chills', 'symptoms_cough.x':'cough', 'symptoms_diarrhea.x':'diarrhea', 'symptoms_fatigue.x':'fatigue', 'symptoms_headache.x':'headache', 'symptoms_nausea.x':'nausea','symptoms_runnynose.x':'runnynose', 'symptoms_sorethroat.x':'sorethroat','symptoms_tasteorsmell':'tasteorsmell' },inplace=True)
 
 
@@ -99,12 +98,11 @@ data.drop(data.columns[0], axis=1, inplace=True)
 
     # Symptoms
 df1 = df1.drop(columns=columns_to_delete2)
-#df1['covid'].unique()
-#df1['deceased'].unique()
-df1.drop (df1 [df1 ['covid'] == 'Suspect- no valid test'].index, inplace= True)
-df1=df1.dropna(subset = ['deceased'])
+df1.drop(df1[df1['covid'] == 'Suspect- no valid test'].index, inplace=True)
+df1.dropna(subset=['deceased'], axis=0, inplace=True)
+df1.drop(columns='covid', inplace=True)
 df1.drop(df1.columns[0], axis=1, inplace=True)
-df1 = df1.drop(columns='covid')
+
 
 # Transform into numerical values
 data = data.replace({"yes": 1, "no": 0})

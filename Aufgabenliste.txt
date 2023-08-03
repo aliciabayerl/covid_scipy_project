@@ -12,6 +12,8 @@ Datenbereinigung: 3 Sätze schreiben (Aufteilung ...)
 Verteilung der Variablen 
 Funktionen für die Modelle
 
+https://docs.google.com/document/d/1CyaqzrNrlnDy5KE3tXZhbzoufK9_Mr0oESfLJgZtRkw/edit?usp=sharing
+
 ROC Kurven diskutieren -> Gegenüberstellung 
 
 Skript zu den ROC Kursen anpassen

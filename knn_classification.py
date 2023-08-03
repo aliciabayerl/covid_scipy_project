@@ -18,7 +18,7 @@ def knn_classification(X, y, k_neighbors=5):
     knn_classifier = KNeighborsClassifier(n_neighbors=k_neighbors)
 
     # Perform 5-fold cross-validation and get the scores
-    cv_scores = cross_val_score(knn_classifier, X, y, cv=5)
+    cv_scores = cross_val_score(knn_classifier, X_resampled, y_resampled, cv=5)
 
     # Fit the model on the resampled data, make predictions, and evaluate
     knn_classifier.fit(X_resampled, y_resampled)

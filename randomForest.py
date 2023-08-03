@@ -18,7 +18,7 @@ def random_forest(X, y):
 
     
     random_forest = RandomForestClassifier(n_estimators=100)
-    v_score = cross_val_score(random_forest, X, y, cv=10)
+    v_score = cross_val_score(random_forest, X_resampled, y_resampled, cv=5)
 
 
     # Fit the model on the resampled data, make predicition and evaluate
