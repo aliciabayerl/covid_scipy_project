@@ -18,7 +18,7 @@ def subplot_feature_importances(data1, title1, saveplot):
 
 ## Load data for plotting
 data_importance1 = pd.read_csv('feature_importances.csv')
-data_importance2 = pd.read_csv('sy_feature_importances.csv')
+data_importance2 = pd.read_csv('feature_importances2.csv')
 data_importance3 = pd.read_csv('feature_importances_cf_hospitalized.csv')
 data_importance4 = pd.read_csv('feature_importances_cf_icu.csv')
 data_importance5 = pd.read_csv('feature_importances_cf_dead.csv')
