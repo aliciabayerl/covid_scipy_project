@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:584fffadcbe59b0ef0c73d09938992acddaa7665e9dd85d0cc4823be93a76833
+size 509
+=======
+Feature,Importance
+ever_hospitalized,0.4724550480770341
+age_categories,0.1764496181107334
+bmi_cat,0.10305904335247107
+sex,0.07859506610562982
+history_hypertension,0.046059217857143765
+history_diabetes,0.036524239166506996
+exposure_risk,0.023633257583790583
+anemia_confirmed,0.020531198398772578
+history_cardiac,0.013977488228206757
+smoke,0.011901143040425034
+uncontrolled_diabetes,0.00646515009078919
+history_pulmonary,0.0054434665065641995
+history_asthma,0.0035065097588857994
+history_hiv,0.0013995537230467685
+>>>>>>> 50c0156455ad148009ae95f8e3e757afd907bc37
