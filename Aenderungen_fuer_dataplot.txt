@@ -1,0 +1,10 @@
+df_plot = pd.read_csv('casefile_breinigt.csv', sep=',')
+#df_plot = df_plot.drop(columns='Unnamed: 0')
+titles_cf=["Age of participants", "Sex of participants", "Number of exposed participants", "Number of participants that are hospitalized", "Number of participants that were treated in ICU", "Number of deceased participants", "Number of participants with existing underlying conditions"]
+labeling_cf=[['18-44', '<18', '45-64', '65+'], ['male', 'female'], ['exposed', 'not exposed'], ['hospitalized', 'not hospitalized'], ['ICU-treatment', 'no ICU-treatment'], ['deceased', 'not deceased'], ['existing conditions', 'no existing conditions']]
+
+
+
+plot_stacked_bar(df_plot, titles_cf, labeling_cf, 'hosp_yn')
+plot_stacked_bar(df_plot, titles_cf, labeling_cf, 'icu_yn')
+plot_stacked_bar(df_plot, titles_cf, labeling_cf, 'death_yn')
