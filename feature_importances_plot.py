@@ -3,8 +3,8 @@ import pandas as pd
 
 def subplot_feature_importances(data1, data2, title1, title2):
 
-    data1 = data1.sort_values(by="Importance", ascending=False)
-    data2 = data2.sort_values(by="Importance", ascending=False)
+    data1 = data1.sort_values(by="Importance", ascending=True)
+    data2 = data2.sort_values(by="Importance", ascending=True)
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
