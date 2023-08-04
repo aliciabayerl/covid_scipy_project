@@ -7,14 +7,13 @@ def subplot_feature_importances(data1, title1, saveplot):
     # sort data by importance
     data1 = data1.sort_values(by="Importance", ascending=True)
     # start plotting a barchart with importance of each predictor
-    plt.figure(figsize=(14, 6))
+    plt.figure(figsize=(7, 6))
     plt.barh(data1["Feature"], data1["Importance"], color="blue")
     plt.xlabel("Feature Importance")
     plt.ylabel("Features")
     plt.title(title1)
     # display and save plot
     plt.tight_layout()
-    #plt.show()
     plt.savefig(saveplot)
 
 ## Load data for plotting
