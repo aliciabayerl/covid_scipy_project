@@ -78,6 +78,4 @@ plt.show()
 
 # Feature importances Random Forest
 feature_importancesRF = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importancesRF})
-feature_importancesRF = feature_importancesRF.sort_values(by='Importance', ascending=False)
-
 feature_importancesRF.to_csv('feature_importances.csv', index=False)
