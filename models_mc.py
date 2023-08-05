@@ -12,7 +12,6 @@ from ScriptsModels import kMeans
 current_dir = os.getcwd()
 datasets_folder = 'Datasets'  
 
-# Load data from the Datasets folder
 data = pd.read_csv(os.path.join(datasets_folder, 'mc_cleaned_dataset.csv'))
 
 # Separate the features + the target variable
@@ -85,12 +84,9 @@ roc_plot_filename = os.path.join('Plots', 'mc_RF_ROC_Curves.png')
 plt.savefig(roc_plot_filename)
 
 
-#plt.show()
-
-# Feature importances Random Forest
+# Save feature importances Random Forest Medical Conditions
 feature_importancesRF = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importancesRF})
 feature_importancesRF = feature_importancesRF.sort_values(by='Importance', ascending=False)
 
-# Save the feature importances CSV in the 'FeatureImportances' folder
 feature_importances_filename = os.path.join('FeatureImportances', 'feature_importances_mc.csv')
 feature_importancesRF.to_csv(feature_importances_filename, index=False)

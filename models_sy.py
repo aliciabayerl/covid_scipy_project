@@ -3,8 +3,6 @@ from ScriptsModels import randomForest
 import matplotlib.pyplot as plt
 import os
 
-## load cleaned symptoms dataset
-
 current_dir = os.getcwd()
 datasets_folder = 'Datasets'  
 
@@ -15,11 +13,10 @@ X = data.drop("deceased", axis=1)
 y = data["deceased"]
 
 ## Model with random forest
-# here only RF is used, due to the fact, that RF performed best with the medical conditions dataset
-# Train the models and get the results
+
+# Train the model and get the results
 rf_model, feature_importancesRF, rf_fpr, rf_tpr, rf_auc = randomForest.random_forest(X, y)
 
-# general plotting definitions
 plt.figure(figsize=(7, 6))
 
 # Plot the ROC curve for RF
@@ -32,14 +29,12 @@ plt.legend(loc='lower right')
 
 ## Plot the data
 plt.tight_layout()
-## save Plot
 roc_plot_filename = os.path.join('Plots', 'sy_RF_ROC_Curves.png')
 plt.savefig(roc_plot_filename)
 
-## Calculate Feature importances RF
+## Calculate Feature importances RF and save
 feature_importancesRF = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importancesRF})
 feature_importancesRF = feature_importancesRF.sort_values(by='Importance', ascending=False)
 
-# Save the feature importances CSV in the 'FeatureImportances' folder
 feature_importances_filename = os.path.join('FeatureImportances', 'feature_importances_sy.csv')
 feature_importancesRF.to_csv(feature_importances_filename, index=False)
