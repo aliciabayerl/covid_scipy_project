@@ -2,12 +2,25 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-## import of cleaned datasets
-df = pd.read_csv('sy_cleaned_dataset.csv', sep=',')
-df2 = pd.read_csv('MC_cleaned_dataset.csv', sep=',')
-# drop column anemia:confirmed because it is used as a symptom
+import os
+
+# Specify the folder name
+datasets_folder = 'Datasets'
+
+# Combine the folder name with the file names
+file_paths = [
+    os.path.join(datasets_folder, 'sy_cleaned_dataset.csv'),
+    os.path.join(datasets_folder, 'MC_cleaned_dataset.csv'),
+    os.path.join(datasets_folder, 'cf_cleaned_dataset.csv')
+]
+
+# Read the cleaned datasets
+df = pd.read_csv(file_paths[0], sep=',')
+df2 = pd.read_csv(file_paths[1], sep=',')
+df_plot = pd.read_csv(file_paths[2], sep=',')
+
+# Drop the 'anemia_confirmed' column from df2
 df2 = df2.drop('anemia_confirmed', axis=1)
-df_plot = pd.read_csv('cf_cleaned_dataset.csv', sep=',')
 
 ## Definition of Plot titles and lables for all plots
 # casefile
@@ -44,8 +57,10 @@ def plot_stacked_bar(df, titles, labeling, grouping, saveplot, legendnames):
         ax.set_ylabel("Number of samples", fontsize=7)
         plt.legend(labels=mylabels, fontsize=6)
         ax.set_title(titles[i], fontsize=7)
+    
     # save the figures (with all belonging plots) as a .png-file
-    plt.savefig(saveplot)
+    plot_path = os.path.join('Plots', saveplot)
+    plt.savefig(plot_path)
 
 # used the predefined function to plot all predicted variables in dependence of their different predictor variables
 plot_stacked_bar(df, titles_df1, labeling_df1, 'deceased', "plt_symptoms", ['alive','deceased'])

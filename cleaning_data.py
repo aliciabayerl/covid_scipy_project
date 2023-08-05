@@ -1,13 +1,20 @@
 ## Import libaries
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+import os
 
 ## Load Data
 ## Information: COVID-19_Case_Surveillance.csv cannot be uploaded to git_hub due to its size of 13 Mio KB
 ## please foolow the download link, download the file yourself and put it in the directory you are using
 ## due to the same fact we downsized our data by using only the first 100000 row of the file
-data = pd.read_csv('df_riskfactormanuscript.csv')
-df1 = pd.read_csv('df_riskfactormanuscript.csv')
+
+# Get the current working directory
+current_dir = os.getcwd()
+datasets_folder = 'Datasets'  
+
+# Load data from the Datasets folder
+data = pd.read_csv(os.path.join(datasets_folder, 'df_riskfactormanuscript.csv'))
+df1 = pd.read_csv(os.path.join(datasets_folder, 'df_riskfactormanuscript.csv'))
 reader = pd.read_csv("COVID-19_Case_Surveillance.csv", iterator=True, sep=',')
 df = reader.get_chunk(100000)
 
@@ -124,8 +131,8 @@ df1['deceased'] = df1['deceased'].replace("deceased", 'yes')
 # replace the confirmed covid cases with yes to enable mapping
 df1['covid'] = df1['covid'].replace("confirmed (rtpcr)", 'yes')
 
-# Casefile
-# drop all cases that aren't sure, because only true cases are needed
+# # Casefile
+# # drop all cases that aren't sure, because only true cases are needed
 df.drop(df[df['current_status'] == 'Probable Case'].index, inplace= True)
 # drop unknown / missing data in the columns that should be predicted (hospitalized, ICU, death) and drop Nan-Values in these columns
 df.drop(df[df['hosp_yn'] == 'Unknown'].index, inplace= True)
@@ -198,6 +205,12 @@ df1 = df1.replace({"yes": 1, "no": 0})
 
 # Export the cleaned data to new datasets
 pd.set_option('display.max_columns', None)
-data.to_csv('mc_cleaned_dataset.csv', index=False)
-df1.to_csv('sy_cleaned_dataset.csv', index=False)
-df.to_csv('cf_cleaned_dataset.csv', index=False)
+
+file_path = os.path.join(datasets_folder, 'mc_cleaned_dataset.csv')
+data.to_csv(file_path, index=False)
+
+file_path = os.path.join(datasets_folder, 'sy_cleaned_dataset.csv')
+df1.to_csv(file_path, index=False)
+
+file_path = os.path.join(datasets_folder, 'cf_cleaned_dataset.csv')
+df.to_csv(file_path, index=False)

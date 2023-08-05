@@ -1,28 +1,35 @@
 import pandas as pd
-from logistic_regression import logistic_regression
-from randomForest import random_forest
-from decisionTree import decision_tree
-from knn_classification import knn_classification
 import matplotlib.pyplot as plt
-from kmeans import kmeans_clustering
+import os
+
+from ScriptsModels import logisticRegression
+from ScriptsModels import randomForest
+from ScriptsModels import decisionTree
+from ScriptsModels import knnClassification
+from ScriptsModels import kMeans
 
 
-data = pd.read_csv('mc_cleaned_dataset.csv')
+current_dir = os.getcwd()
+datasets_folder = 'Datasets'  
+
+# Load data from the Datasets folder
+data = pd.read_csv(os.path.join(datasets_folder, 'mc_cleaned_dataset.csv'))
+
 # Separate the features + the target variable
 X = data.drop("deceased", axis=1)
 y = data["deceased"]
 
 # Train the models and get the results
-rf_model, feature_importancesRF, rf_fpr, rf_tpr, rf_auc = random_forest(X, y)
-lr_model, lr_fpr, lr_tpr, lr_auc = logistic_regression(X, y)
-dt_model, dt_fpr, dt_tpr, dt_auc = decision_tree(X, y)
-knn_model, kn_fpr, kn_tpr, kn_auc = knn_classification(X, y, k_neighbors=5)
+rf_model, feature_importancesRF, rf_fpr, rf_tpr, rf_auc = randomForest.random_forest(X, y)
+lr_model, lr_fpr, lr_tpr, lr_auc = logisticRegression.logistic_regression(X, y)
+dt_model, dt_fpr, dt_tpr, dt_auc = decisionTree.decision_tree(X, y)
+knn_model, kn_fpr, kn_tpr, kn_auc = knnClassification.knn_classification(X, y, k_neighbors=5)
 
 # K-means clustering
 kmeans_configs = [2, 3, 4, 5]  # Different number of clusters to try
 silhouette_scores = []
 for n_clusters in kmeans_configs:
-    _, silhouette = kmeans_clustering(X, y, n_clusters=n_clusters)
+    _, silhouette = kMeans.kmeans_clustering(X, y, n_clusters=n_clusters)
     silhouette_scores.append(silhouette)
 
 plt.figure(figsize=(14, 6))
@@ -72,12 +79,18 @@ plt.title('K-means - Silhouette Score')
 plt.xticks(kmeans_configs)
 plt.grid()
 
-
 plt.tight_layout()
-plt.show()
+
+roc_plot_filename = os.path.join('Plots', 'mc_RF_ROC_Curves.png')
+plt.savefig(roc_plot_filename)
+
+
+#plt.show()
 
 # Feature importances Random Forest
 feature_importancesRF = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importancesRF})
 feature_importancesRF = feature_importancesRF.sort_values(by='Importance', ascending=False)
 
-feature_importancesRF.to_csv('feature_importances.csv', index=False)
+# Save the feature importances CSV in the 'FeatureImportances' folder
+feature_importances_filename = os.path.join('FeatureImportances', 'feature_importances_mc.csv')
+feature_importancesRF.to_csv(feature_importances_filename, index=False)

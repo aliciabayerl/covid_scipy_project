@@ -1,0 +1,5 @@
+Feature,Importance
+age_group,0.39784048479919215
+exposure_yn,0.3135654767224482
+underlying_conditions_yn,0.16359144642359308
+sex,0.1250025920547665

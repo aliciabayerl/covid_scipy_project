@@ -1,6 +1,7 @@
-## import of needed libraries
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
+
 
 ## the following function shall enable to plot the feature importance for each prediction
 def subplot_feature_importances(data1, title1, saveplot):
@@ -14,18 +15,34 @@ def subplot_feature_importances(data1, title1, saveplot):
     plt.title(title1)
     # display and save plot
     plt.tight_layout()
-    plt.savefig(saveplot)
+    plot_path = os.path.join('Plots', saveplot)
+    plt.savefig(plot_path)
+
+fi_folder = 'FeatureImportances'
+
+# Combine the folder name with the file names
+file_paths = [
+    os.path.join(fi_folder, 'feature_importances_mc.csv'),
+    os.path.join(fi_folder, 'feature_importances_sy.csv'),
+    os.path.join(fi_folder, 'feature_importances_cf_hospitalized.csv'),
+    os.path.join(fi_folder, 'feature_importances_cf_icu.csv'),
+    os.path.join(fi_folder, 'feature_importances_cf_dead.csv')
+]
 
 ## Load data for plotting
-data_importance1 = pd.read_csv('feature_importances.csv')
-data_importance2 = pd.read_csv('feature_importances2.csv')
-data_importance3 = pd.read_csv('feature_importances_cf_hospitalized.csv')
-data_importance4 = pd.read_csv('feature_importances_cf_icu.csv')
-data_importance5 = pd.read_csv('feature_importances_cf_dead.csv')
+data_importance_list = []
+for file_path in file_paths:
+    data_importance_list.append(pd.read_csv(file_path))
+
+data_importance1 = data_importance_list[0]
+data_importance2 = data_importance_list[1]
+data_importance3 = data_importance_list[2]
+data_importance4 = data_importance_list[3]
+data_importance5 = data_importance_list[4]
 
 ## Plot data for different predictors
-subplot_feature_importances(data_importance1,  "Risk Factors for dying due to covid (Medical Conditions)", 'plt_feature_importance_mc')
+subplot_feature_importances(data_importance1, "Risk Factors for dying due to covid (Medical Conditions)", 'plt_feature_importance_mc')
 subplot_feature_importances(data_importance2, "Risk Factors for dying due to covid (Symptoms)", 'plt_feature_importance_sy')
-subplot_feature_importances(data_importance3,  "Risk Factors for being hospitalized due to covid (casefile)", 'plt_feature_importance_cf_hosp')
+subplot_feature_importances(data_importance3, "Risk Factors for being hospitalized due to covid (casefile)", 'plt_feature_importance_cf_hosp')
 subplot_feature_importances(data_importance4, "Risk Factors for being in ICU due to covid (casefile)", 'plt_feature_importance_cf_icu')
 subplot_feature_importances(data_importance5, "Risk Factors for dying due to covid (casefile)", 'plt_feature_importance_cf_dead')
