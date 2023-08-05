@@ -57,7 +57,6 @@ plt.legend(loc='lower right')
 
 ## Plot the data
 plt.tight_layout()
-plt.show()
 # Plot speichern
 plt.savefig('casefile_RF_ROC_Curves')
 
