@@ -16,4 +16,5 @@ def kmeans_clustering(X, y, n_clusters=2):
     cluster_labels = kmeans_model.labels_
     # Compute silhouette score as the performance metric
     silhouette = silhouette_score(X, cluster_labels)
+    print(silhouette)
     return kmeans_model, silhouette
